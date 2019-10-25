@@ -43,7 +43,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public String uploadImage(MultipartFile file) throws IOException {
+    public String uploadImage(MultipartFile file,String defaultImage) throws IOException {
         // 获取文件名
         String fileName = file.getOriginalFilename();
         // 获取文件后缀
@@ -59,7 +59,7 @@ public class ImageServiceImpl implements ImageService {
         if (result){
             return "http://images.wukate.com/" + tempFile.getName();
         }else{
-            return "defaultGoods.jpg";
+            return "http://images.wukate.com/" + defaultImage;
         }
     }
 }

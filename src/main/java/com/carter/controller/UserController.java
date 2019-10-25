@@ -2,12 +2,15 @@ package com.carter.controller;
 
 import com.carter.common.ResponseBo;
 import com.carter.pojo.User;
+import com.carter.service.ImageService;
 import com.carter.service.UserService;
 import com.carter.utils.JWTUtil;
 import com.carter.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 
@@ -17,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserService userServiceImpl;
+
+    @Autowired
+    private ImageService imageServiceImpl;
 
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
     public ResponseBo addUser(@RequestBody User user){
@@ -51,5 +57,18 @@ public class UserController {
             e.printStackTrace();
         }
         return ResponseBo.error(500,"拉取用户信息失败");
+    }
+
+    @RequestMapping(value = "/uploadUserImage",method = RequestMethod.POST)
+    public ResponseBo uploadUserImage(@RequestParam(value = "file") MultipartFile mfile){
+        try {
+            String uploadResult = imageServiceImpl.uploadImage(mfile,"defaultUser.jpg");
+            if (uploadResult!="http://images.wukate.com/defaultUser.jpg"){
+                return ResponseBo.success(200,"上传成功",uploadResult);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ResponseBo.error(500,"上传失败");
     }
 }

@@ -88,16 +88,15 @@ public class GoodsController {
      * @throws IOException
      */
     @RequestMapping(value = "/uploadAndReconizeImage",method = RequestMethod.POST)
-    public ResponseBo uploadAndReconizeImage(@RequestParam(value = "file") MultipartFile mfile) throws IOException {
+    public ResponseBo uploadAndReconizeImage(@RequestParam(value = "file") MultipartFile mfile){
         try {
             //识别
             String recognize = imageServiceImpl.recognizeImage(mfile);
             Map recognizeObj = (Map)JSON.parse(recognize);
             //上传
-            String uploadResult = imageServiceImpl.uploadImage(mfile);
-            if (uploadResult!="defaultGoods.jpg"){
+            String uploadResult = imageServiceImpl.uploadImage(mfile,"defaultGoods.jpg");
+            if (uploadResult!="http://images.wukate.com/defaultGoods.jpg"){
                 recognizeObj.put("ImgURL",uploadResult);
-                System.out.println(uploadResult);
                 return ResponseBo.success(200,"上传成功",recognizeObj);
             }
         } catch (IOException e) {
