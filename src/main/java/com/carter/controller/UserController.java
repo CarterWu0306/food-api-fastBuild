@@ -2,6 +2,7 @@ package com.carter.controller;
 
 import com.carter.common.ResponseBo;
 import com.carter.pojo.User;
+import com.carter.pojo.UserRole;
 import com.carter.service.ImageService;
 import com.carter.service.UserService;
 import com.carter.utils.JWTUtil;
@@ -25,15 +26,16 @@ public class UserController {
     private ImageService imageServiceImpl;
 
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
-    public ResponseBo addUser(@RequestBody User user){
+    public ResponseBo addUser(User user,@RequestParam(value = "userType") String userType){
         try {
             //检查用户是否存在
             User checkUser = userServiceImpl.selUser(user.getUsername());
             if (checkUser==null){
                 //密码加密
                 user.setPassword(MD5Util.encrypByMd5(user.getPassword()));
-                int index = userServiceImpl.addUser(user);
-                if (index>0){
+                int index = userServiceImpl.addUser(user,userType);
+
+                if (index>1){
                     return ResponseBo.success(200,"新增用户成功","");
                 }
             }else{

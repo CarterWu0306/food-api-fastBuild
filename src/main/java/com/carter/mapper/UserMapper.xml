@@ -151,7 +151,8 @@
       #{lastIp,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{userStatus,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.carter.pojo.User" >
+  <insert id="insertSelective" parameterType="com.carter.pojo.User"
+          useGeneratedKeys="true" keyProperty="userId">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >

@@ -7,7 +7,7 @@ import java.util.Map;
 public interface UserService {
     User selUser(String username);
 
-    int addUser(User user);
+    int addUser(User user,String userType);
 
     Map<String, Object> selUserInfoByName(String username);
 }
