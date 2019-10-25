@@ -94,7 +94,7 @@ public class GoodsController {
             String recognize = imageServiceImpl.recognizeImage(mfile);
             Map recognizeObj = (Map)JSON.parse(recognize);
             //上传
-            String uploadResult = imageServiceImpl.uploadImage(mfile,"defaultGoods.jpg");
+            String uploadResult = imageServiceImpl.uploadImage(mfile,"http://images.wukate.com/defaultGoods.jpg");
             if (uploadResult!="http://images.wukate.com/defaultGoods.jpg"){
                 recognizeObj.put("ImgURL",uploadResult);
                 return ResponseBo.success(200,"上传成功",recognizeObj);

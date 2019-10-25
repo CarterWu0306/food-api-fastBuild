@@ -62,7 +62,7 @@ public class UserController {
     @RequestMapping(value = "/uploadUserImage",method = RequestMethod.POST)
     public ResponseBo uploadUserImage(@RequestParam(value = "file") MultipartFile mfile){
         try {
-            String uploadResult = imageServiceImpl.uploadImage(mfile,"defaultUser.jpg");
+            String uploadResult = imageServiceImpl.uploadImage(mfile,"http://images.wukate.com/defaultUser.jpg");
             if (uploadResult!="http://images.wukate.com/defaultUser.jpg"){
                 return ResponseBo.success(200,"上传成功",uploadResult);
             }

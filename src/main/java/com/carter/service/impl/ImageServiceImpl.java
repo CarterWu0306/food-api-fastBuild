@@ -59,7 +59,7 @@ public class ImageServiceImpl implements ImageService {
         if (result){
             return "http://images.wukate.com/" + tempFile.getName();
         }else{
-            return "http://images.wukate.com/" + defaultImage;
+            return defaultImage;
         }
     }
 }
