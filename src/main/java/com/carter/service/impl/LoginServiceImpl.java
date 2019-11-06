@@ -8,13 +8,16 @@ import com.carter.utils.JWTUtil;
 import com.carter.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
 @Service
+@Transactional
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
@@ -27,7 +30,7 @@ public class LoginServiceImpl implements LoginService {
     public ResponseBo login(User user) {
         try {
             User selUser = userServiceImpl.selUser(user.getUsername());
-            if(user!=null&&user.getPassword().equals(user.getPassword())){
+            if(selUser!=null&&selUser.getPassword().equals(user.getPassword())){
                 //生成token
                 String token = JWTUtil.generateToken(user.getUsername());
 
@@ -41,7 +44,11 @@ public class LoginServiceImpl implements LoginService {
                 Map<String,String> map = new HashMap<>();
                 map.put("token",token);
 
-                if (index>2){
+                //修改用户最后登录时间
+                selUser.setLastLoginTime(new Date());
+                index += userServiceImpl.updUser(selUser);
+
+                if (index>3){
                     return ResponseBo.success(200,"登录成功",map);
                 }
             }

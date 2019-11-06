@@ -8,7 +8,7 @@
     <result column="goods_img" property="goodsImg" jdbcType="VARCHAR" />
     <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
     <result column="goods_stock" property="goodsStock" jdbcType="INTEGER" />
-    <result column="goods_status" property="goodsStatus" jdbcType="VARCHAR" />
+    <result column="goods_status" property="goodsStatus" jdbcType="CHAR" />
     <result column="sale_num" property="saleNum" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    goods_id, goods_name, goods_label, goods_img, goods_price, goods_stock, goods_status, 
+    goods_id, goods_name, goods_label, goods_img, goods_price, goods_stock, goods_status,
     sale_num, create_time
   </sql>
   <sql id="Blob_Column_List" >
@@ -111,7 +111,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -129,13 +129,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.carter.pojo.Goods" >
-    insert into goods (goods_id, goods_name, goods_label, 
-      goods_img, goods_price, goods_stock, 
-      goods_status, sale_num, create_time, 
+    insert into goods (goods_id, goods_name, goods_label,
+      goods_img, goods_price, goods_stock,
+      goods_status, sale_num, create_time,
       goods_desc)
-    values (#{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsLabel,jdbcType=VARCHAR}, 
-      #{goodsImg,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DECIMAL}, #{goodsStock,jdbcType=INTEGER}, 
-      #{goodsStatus,jdbcType=VARCHAR}, #{saleNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsLabel,jdbcType=VARCHAR},
+      #{goodsImg,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DECIMAL}, #{goodsStock,jdbcType=INTEGER},
+      #{goodsStatus,jdbcType=CHAR}, #{saleNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
       #{goodsDesc,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.carter.pojo.Goods" >
@@ -192,7 +192,7 @@
         #{goodsStock,jdbcType=INTEGER},
       </if>
       <if test="goodsStatus != null" >
-        #{goodsStatus,jdbcType=VARCHAR},
+        #{goodsStatus,jdbcType=CHAR},
       </if>
       <if test="saleNum != null" >
         #{saleNum,jdbcType=INTEGER},
@@ -233,7 +233,7 @@
         goods_stock = #{record.goodsStock,jdbcType=INTEGER},
       </if>
       <if test="record.goodsStatus != null" >
-        goods_status = #{record.goodsStatus,jdbcType=VARCHAR},
+        goods_status = #{record.goodsStatus,jdbcType=CHAR},
       </if>
       <if test="record.saleNum != null" >
         sale_num = #{record.saleNum,jdbcType=INTEGER},
@@ -252,15 +252,15 @@
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update goods
     set goods_id = #{record.goodsId,jdbcType=INTEGER},
-      goods_name = #{record.goodsName,jdbcType=VARCHAR},
-      goods_label = #{record.goodsLabel,jdbcType=VARCHAR},
-      goods_img = #{record.goodsImg,jdbcType=VARCHAR},
-      goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
-      goods_stock = #{record.goodsStock,jdbcType=INTEGER},
-      goods_status = #{record.goodsStatus,jdbcType=VARCHAR},
-      sale_num = #{record.saleNum,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      goods_desc = #{record.goodsDesc,jdbcType=LONGVARCHAR}
+    goods_name = #{record.goodsName,jdbcType=VARCHAR},
+    goods_label = #{record.goodsLabel,jdbcType=VARCHAR},
+    goods_img = #{record.goodsImg,jdbcType=VARCHAR},
+    goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
+    goods_stock = #{record.goodsStock,jdbcType=INTEGER},
+    goods_status = #{record.goodsStatus,jdbcType=CHAR},
+    sale_num = #{record.saleNum,jdbcType=INTEGER},
+    create_time = #{record.createTime,jdbcType=TIMESTAMP},
+    goods_desc = #{record.goodsDesc,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -268,14 +268,14 @@
   <update id="updateByExample" parameterType="map" >
     update goods
     set goods_id = #{record.goodsId,jdbcType=INTEGER},
-      goods_name = #{record.goodsName,jdbcType=VARCHAR},
-      goods_label = #{record.goodsLabel,jdbcType=VARCHAR},
-      goods_img = #{record.goodsImg,jdbcType=VARCHAR},
-      goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
-      goods_stock = #{record.goodsStock,jdbcType=INTEGER},
-      goods_status = #{record.goodsStatus,jdbcType=VARCHAR},
-      sale_num = #{record.saleNum,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    goods_name = #{record.goodsName,jdbcType=VARCHAR},
+    goods_label = #{record.goodsLabel,jdbcType=VARCHAR},
+    goods_img = #{record.goodsImg,jdbcType=VARCHAR},
+    goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
+    goods_stock = #{record.goodsStock,jdbcType=INTEGER},
+    goods_status = #{record.goodsStatus,jdbcType=CHAR},
+    sale_num = #{record.saleNum,jdbcType=INTEGER},
+    create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -299,7 +299,7 @@
         goods_stock = #{goodsStock,jdbcType=INTEGER},
       </if>
       <if test="goodsStatus != null" >
-        goods_status = #{goodsStatus,jdbcType=VARCHAR},
+        goods_status = #{goodsStatus,jdbcType=CHAR},
       </if>
       <if test="saleNum != null" >
         sale_num = #{saleNum,jdbcType=INTEGER},
@@ -320,7 +320,7 @@
       goods_img = #{goodsImg,jdbcType=VARCHAR},
       goods_price = #{goodsPrice,jdbcType=DECIMAL},
       goods_stock = #{goodsStock,jdbcType=INTEGER},
-      goods_status = #{goodsStatus,jdbcType=VARCHAR},
+      goods_status = #{goodsStatus,jdbcType=CHAR},
       sale_num = #{saleNum,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       goods_desc = #{goodsDesc,jdbcType=LONGVARCHAR}
@@ -333,7 +333,7 @@
       goods_img = #{goodsImg,jdbcType=VARCHAR},
       goods_price = #{goodsPrice,jdbcType=DECIMAL},
       goods_stock = #{goodsStock,jdbcType=INTEGER},
-      goods_status = #{goodsStatus,jdbcType=VARCHAR},
+      goods_status = #{goodsStatus,jdbcType=CHAR},
       sale_num = #{saleNum,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where goods_id = #{goodsId,jdbcType=INTEGER}

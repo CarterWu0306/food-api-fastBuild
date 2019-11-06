@@ -81,4 +81,9 @@ public class BaiduUtil {
         }
         return null;
     }
+
+    public static void main(String[] args) {
+        //手动获取token
+        System.out.println(getAuth());
+    }
 }

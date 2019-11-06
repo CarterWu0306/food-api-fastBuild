@@ -49,6 +49,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int updUser(User user) {
+        int index = userMapper.updateByPrimaryKeySelective(user);
+        return index;
+    }
+
+    @Override
     public Map<String, Object> selUserInfoByName(String username) {
         Map<String, Object> userInfo = userMapper.selUserInfoByName(username);
         return userInfo;

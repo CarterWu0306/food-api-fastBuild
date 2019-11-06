@@ -9,5 +9,7 @@ public interface UserService {
 
     int addUser(User user,String userType);
 
+    int updUser(User user);
+
     Map<String, Object> selUserInfoByName(String username);
 }

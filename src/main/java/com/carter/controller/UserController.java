@@ -2,7 +2,6 @@ package com.carter.controller;
 
 import com.carter.common.ResponseBo;
 import com.carter.pojo.User;
-import com.carter.pojo.UserRole;
 import com.carter.service.ImageService;
 import com.carter.service.UserService;
 import com.carter.utils.JWTUtil;

@@ -14,7 +14,7 @@
     <result column="user_score" property="userScore" jdbcType="INTEGER" />
     <result column="last_ip" property="lastIp" jdbcType="VARCHAR" />
     <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
-    <result column="user_status" property="userStatus" jdbcType="TINYINT" />
+    <result column="user_status" property="userStatus" jdbcType="CHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <collection column="user_id" property="roleList" select="getRolesByUserId"></collection>
   </resultMap>
@@ -44,7 +44,7 @@
     <result column="user_score" property="userScore" jdbcType="INTEGER" />
     <result column="last_ip" property="lastIp" jdbcType="VARCHAR" />
     <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
-    <result column="user_status" property="userStatus" jdbcType="VARCHAR" />
+    <result column="user_status" property="userStatus" jdbcType="CHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -106,7 +106,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    user_id, username, password, nick_name, real_name, avatar, user_phone, user_email, 
+    user_id, username, password, nick_name, real_name, avatar, user_phone, user_email,
     user_score, last_ip, last_login_time, user_status, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.carter.pojo.UserExample" >
@@ -124,7 +124,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from user
     where user_id = #{userId,jdbcType=INTEGER}
@@ -140,19 +140,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.carter.pojo.User" >
-    insert into user (user_id, username, password, 
-      nick_name, real_name, avatar, 
-      user_phone, user_email, user_score, 
-      last_ip, last_login_time, user_status, 
+    insert into user (user_id, username, password,
+      nick_name, real_name, avatar,
+      user_phone, user_email, user_score,
+      last_ip, last_login_time, user_status,
       create_time)
-    values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=CHAR}, 
-      #{nickName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
-      #{userPhone,jdbcType=CHAR}, #{userEmail,jdbcType=VARCHAR}, #{userScore,jdbcType=INTEGER}, 
-      #{lastIp,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{userStatus,jdbcType=VARCHAR}, 
+    values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=CHAR},
+      #{nickName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR},
+      #{userPhone,jdbcType=CHAR}, #{userEmail,jdbcType=VARCHAR}, #{userScore,jdbcType=INTEGER},
+      #{lastIp,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{userStatus,jdbcType=CHAR},
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.carter.pojo.User"
-          useGeneratedKeys="true" keyProperty="userId">
+  <insert id="insertSelective" parameterType="com.carter.pojo.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -230,7 +229,7 @@
         #{lastLoginTime,jdbcType=TIMESTAMP},
       </if>
       <if test="userStatus != null" >
-        #{userStatus,jdbcType=VARCHAR},
+        #{userStatus,jdbcType=CHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -280,7 +279,7 @@
         last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.userStatus != null" >
-        user_status = #{record.userStatus,jdbcType=VARCHAR},
+        user_status = #{record.userStatus,jdbcType=CHAR},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -293,18 +292,18 @@
   <update id="updateByExample" parameterType="map" >
     update user
     set user_id = #{record.userId,jdbcType=INTEGER},
-      username = #{record.username,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=CHAR},
-      nick_name = #{record.nickName,jdbcType=VARCHAR},
-      real_name = #{record.realName,jdbcType=VARCHAR},
-      avatar = #{record.avatar,jdbcType=VARCHAR},
-      user_phone = #{record.userPhone,jdbcType=CHAR},
-      user_email = #{record.userEmail,jdbcType=VARCHAR},
-      user_score = #{record.userScore,jdbcType=INTEGER},
-      last_ip = #{record.lastIp,jdbcType=VARCHAR},
-      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
-      user_status = #{record.userStatus,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    username = #{record.username,jdbcType=VARCHAR},
+    password = #{record.password,jdbcType=CHAR},
+    nick_name = #{record.nickName,jdbcType=VARCHAR},
+    real_name = #{record.realName,jdbcType=VARCHAR},
+    avatar = #{record.avatar,jdbcType=VARCHAR},
+    user_phone = #{record.userPhone,jdbcType=CHAR},
+    user_email = #{record.userEmail,jdbcType=VARCHAR},
+    user_score = #{record.userScore,jdbcType=INTEGER},
+    last_ip = #{record.lastIp,jdbcType=VARCHAR},
+    last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+    user_status = #{record.userStatus,jdbcType=CHAR},
+    create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -343,7 +342,7 @@
         last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
       </if>
       <if test="userStatus != null" >
-        user_status = #{userStatus,jdbcType=VARCHAR},
+        user_status = #{userStatus,jdbcType=CHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -363,7 +362,7 @@
       user_score = #{userScore,jdbcType=INTEGER},
       last_ip = #{lastIp,jdbcType=VARCHAR},
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
-      user_status = #{userStatus,jdbcType=VARCHAR},
+      user_status = #{userStatus,jdbcType=CHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
